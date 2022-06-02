@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @political_party %>
+
+<div>
+  <%= link_to "Edit this political party", edit_political_party_path(@political_party) %> |
+  <%= link_to "Back to political parties", political_parties_path %>
+
+  <%= button_to "Destroy this political party", @political_party, method: :delete %>
+</div>

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :political_parties
+  resources :admins
   resources :sessions
   resources :signins
   resources :tallies

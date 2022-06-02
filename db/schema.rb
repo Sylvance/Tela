@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_02_151607) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_02_191714) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "admins", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "candidates", force: :cascade do |t|
     t.string "name"
@@ -55,6 +63,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_02_151607) do
     t.string "link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "political_parties", force: :cascade do |t|
+    t.string "name"
+    t.string "iebc_id"
+    t.bigint "admin_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_political_parties_on_admin_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -101,6 +118,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_02_151607) do
     t.index ["picture_id"], name: "index_votes_on_picture_id"
   end
 
+  add_foreign_key "political_parties", "admins"
   add_foreign_key "sessions", "observers"
   add_foreign_key "signins", "observers"
   add_foreign_key "tallies", "candidates"

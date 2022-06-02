@@ -1,0 +1,32 @@
+<%= form_with(model: political_party) do |form| %>
+  <% if political_party.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(political_party.errors.count, "error") %> prohibited this political_party from being saved:</h2>
+
+      <ul>
+        <% political_party.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :iebc_id, style: "display: block" %>
+    <%= form.text_field :iebc_id %>
+  </div>
+
+  <div>
+    <%= form.label :admin_id, style: "display: block" %>
+    <%= form.text_field :admin_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
