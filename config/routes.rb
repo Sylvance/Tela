@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :dashboards
   resources :political_parties
   resources :admins
   resources :sessions
