@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Election periods</h1>
+
+<div id="election_periods">
+  <% @election_periods.each do |election_period| %>
+    <%= render election_period %>
+    <p>
+      <%= link_to "Show this election period", election_period %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New election period", new_election_period_path %>

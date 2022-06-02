@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @election_period %>
+
+<div>
+  <%= link_to "Edit this election period", edit_election_period_path(@election_period) %> |
+  <%= link_to "Back to election periods", election_periods_path %>
+
+  <%= button_to "Destroy this election period", @election_period, method: :delete %>
+</div>

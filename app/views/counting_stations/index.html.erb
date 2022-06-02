@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Counting stations</h1>
+
+<div id="counting_stations">
+  <% @counting_stations.each do |counting_station| %>
+    <%= render counting_station %>
+    <p>
+      <%= link_to "Show this counting station", counting_station %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New counting station", new_counting_station_path %>

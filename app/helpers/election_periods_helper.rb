@@ -1,0 +1,2 @@
+module ElectionPeriodsHelper
+end

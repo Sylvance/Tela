@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @tally %>
+
+<div>
+  <%= link_to "Edit this tally", edit_tally_path(@tally) %> |
+  <%= link_to "Back to tallies", tallies_path %>
+
+  <%= button_to "Destroy this tally", @tally, method: :delete %>
+</div>

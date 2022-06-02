@@ -1,0 +1,2 @@
+class Observer < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class ElectionPeriod < ApplicationRecord
+end

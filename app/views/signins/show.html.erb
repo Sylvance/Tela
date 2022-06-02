@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @signin %>
+
+<div>
+  <%= link_to "Edit this signin", edit_signin_path(@signin) %> |
+  <%= link_to "Back to signins", signins_path %>
+
+  <%= button_to "Destroy this signin", @signin, method: :delete %>
+</div>

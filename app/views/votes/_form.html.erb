@@ -1,0 +1,57 @@
+<%= form_with(model: vote) do |form| %>
+  <% if vote.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(vote.errors.count, "error") %> prohibited this vote from being saved:</h2>
+
+      <ul>
+        <% vote.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :election_period_id, style: "display: block" %>
+    <%= form.text_field :election_period_id %>
+  </div>
+
+  <div>
+    <%= form.label :picture_id, style: "display: block" %>
+    <%= form.text_field :picture_id %>
+  </div>
+
+  <div>
+    <%= form.label :serial_no, style: "display: block" %>
+    <%= form.text_field :serial_no %>
+  </div>
+
+  <div>
+    <%= form.label :counting_station_id, style: "display: block" %>
+    <%= form.text_field :counting_station_id %>
+  </div>
+
+  <div>
+    <%= form.label :candidate_id, style: "display: block" %>
+    <%= form.text_field :candidate_id %>
+  </div>
+
+  <div>
+    <%= form.label :ballot_type, style: "display: block" %>
+    <%= form.text_field :ballot_type %>
+  </div>
+
+  <div>
+    <%= form.label :valid_vote, style: "display: block" %>
+    <%= form.check_box :valid_vote %>
+  </div>
+
+  <div>
+    <%= form.label :electoral_position_id, style: "display: block" %>
+    <%= form.text_field :electoral_position_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

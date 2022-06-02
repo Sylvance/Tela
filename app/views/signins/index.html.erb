@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Signins</h1>
+
+<div id="signins">
+  <% @signins.each do |signin| %>
+    <%= render signin %>
+    <p>
+      <%= link_to "Show this signin", signin %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New signin", new_signin_path %>

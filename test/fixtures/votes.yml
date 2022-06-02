@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  election_period: one
+  picture: one
+  serial_no: MyString
+  counting_station: one
+  candidate: one
+  ballot_type: MyString
+  valid_vote: false
+  electoral_position: one
+
+two:
+  election_period: two
+  picture: two
+  serial_no: MyString
+  counting_station: two
+  candidate: two
+  ballot_type: MyString
+  valid_vote: false
+  electoral_position: two

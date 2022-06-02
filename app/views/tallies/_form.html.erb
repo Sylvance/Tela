@@ -1,0 +1,32 @@
+<%= form_with(model: tally) do |form| %>
+  <% if tally.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(tally.errors.count, "error") %> prohibited this tally from being saved:</h2>
+
+      <ul>
+        <% tally.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :candidate_id, style: "display: block" %>
+    <%= form.text_field :candidate_id %>
+  </div>
+
+  <div>
+    <%= form.label :total_count, style: "display: block" %>
+    <%= form.text_field :total_count %>
+  </div>
+
+  <div>
+    <%= form.label :counting_station_id, style: "display: block" %>
+    <%= form.text_field :counting_station_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

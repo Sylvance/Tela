@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Observers</h1>
+
+<div id="observers">
+  <% @observers.each do |observer| %>
+    <%= render observer %>
+    <p>
+      <%= link_to "Show this observer", observer %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New observer", new_observer_path %>

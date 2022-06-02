@@ -1,0 +1,27 @@
+<%= form_with(model: signin) do |form| %>
+  <% if signin.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(signin.errors.count, "error") %> prohibited this signin from being saved:</h2>
+
+      <ul>
+        <% signin.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :observer_id, style: "display: block" %>
+    <%= form.text_field :observer_id %>
+  </div>
+
+  <div>
+    <%= form.label :session_token, style: "display: block" %>
+    <%= form.text_field :session_token %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

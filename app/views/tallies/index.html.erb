@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Tallies</h1>
+
+<div id="tallies">
+  <% @tallies.each do |tally| %>
+    <%= render tally %>
+    <p>
+      <%= link_to "Show this tally", tally %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New tally", new_tally_path %>

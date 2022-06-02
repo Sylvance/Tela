@@ -1,0 +1,2 @@
+class ElectoralPosition < ApplicationRecord
+end

@@ -1,0 +1,27 @@
+<%= form_with(model: counting_station) do |form| %>
+  <% if counting_station.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(counting_station.errors.count, "error") %> prohibited this counting_station from being saved:</h2>
+
+      <ul>
+        <% counting_station.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :location, style: "display: block" %>
+    <%= form.text_field :location %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,2 @@
+class CountingStation < ApplicationRecord
+end

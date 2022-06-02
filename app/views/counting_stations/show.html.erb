@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @counting_station %>
+
+<div>
+  <%= link_to "Edit this counting station", edit_counting_station_path(@counting_station) %> |
+  <%= link_to "Back to counting stations", counting_stations_path %>
+
+  <%= button_to "Destroy this counting station", @counting_station, method: :delete %>
+</div>
