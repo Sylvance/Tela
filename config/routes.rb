@@ -16,4 +16,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "dashboards#index"
+  get 'dashboards_by_counting_station', to: 'dashboards#by_counting_station'
+  get 'dashboards_by_candidate', to: 'dashboards#by_candidate'
+  get 'dashboards_by_electoral_position', to: 'dashboards#by_electoral_position'
+  get 'dashboards_by_election_period', to: 'dashboards#by_election_period'
 end

@@ -1,0 +1,19 @@
+<div class="flex w-full items-center">
+    <div class="flex items-center text-3xl text-gray-900 dark:text-white">
+        <img src="<%= active_candidate.image %>" class="w-12 mr-4 rounded-full" alt="profile" />
+        <%= active_candidate.name %>
+    </div>
+    <div class="ml-auto sm:flex hidden items-center justify-end">
+        <div class="text-right">
+        <div class="text-xs text-gray-400 dark:text-gray-400">Total Count:</div>
+        <div class="text-gray-900 text-lg dark:text-white">#<%= active_candidate.tally_total_count %> votes</div>
+        </div>
+        <button class="w-8 h-8 ml-4 text-gray-400 shadow dark:text-gray-400 rounded-full flex items-center justify-center border border-gray-200 dark:border-gray-700">
+        <svg viewBox="0 0 24 24" class="w-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="1"></circle>
+            <circle cx="19" cy="12" r="1"></circle>
+            <circle cx="5" cy="12" r="1"></circle>
+        </svg>
+        </button>
+    </div>
+</div>

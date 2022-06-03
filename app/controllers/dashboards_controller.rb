@@ -57,6 +57,38 @@ class DashboardsController < ApplicationController
     end
   end
 
+  def by_counting_station
+    @counting_stations = CountingStation.all
+    @active_counting_station = nil
+    @counting_stations_tabs = counting_stations_tabs
+    @counting_station_active_main_tab = counting_station_active_main_tab
+    @counting_station_active_main_tab_locals = counting_station_active_main_tab_locals
+  end
+
+  def by_candidate
+    @candidates = Candidate.all
+    @active_candidate = nil
+    @candidates_tabs = candidates_tabs
+    @candidate_active_main_tab = candidate_active_main_tab
+    @candidate_active_main_tab_locals = candidate_active_main_tab_locals
+  end
+
+  def by_electoral_position
+    @electoral_positions = ElectoralPosition.all
+    @active_electoral_position = nil
+    @electoral_positions_tabs = electoral_positions_tabs
+    @electoral_position_active_main_tab = electoral_position_active_main_tab
+    @electoral_position_active_main_tab_locals = electoral_position_active_main_tab_locals
+  end
+
+  def by_election_period
+    @election_periods = ElectionPeriod.all
+    @active_election_period = nil
+    @election_periods_tabs = election_periods_tabs
+    @election_period_active_main_tab = election_period_active_main_tab
+    @election_period_active_main_tab_locals = election_period_active_main_tab_locals
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_dashboard
