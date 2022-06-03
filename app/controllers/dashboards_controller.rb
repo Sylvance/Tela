@@ -59,34 +59,38 @@ class DashboardsController < ApplicationController
 
   def by_counting_station
     @counting_stations = CountingStation.all
-    @active_counting_station = nil
-    @counting_stations_tabs = counting_stations_tabs
-    @counting_station_active_main_tab = counting_station_active_main_tab
-    @counting_station_active_main_tab_locals = counting_station_active_main_tab_locals
+    @active_counting_station =  @counting_stations.first
+    active_tab = params[:active_main_tab] || counting_station_active_main_tab
+    @counting_stations_tabs = counting_stations_tabs(active_tab)
+    @counting_station_active_main_tab = "dashboards/mainbar/counting_station/#{active_tab}.html.erb"
+    @counting_station_active_main_tab_locals = counting_station_active_main_tab_locals(@active_counting_station&.id)
   end
 
   def by_candidate
     @candidates = Candidate.all
-    @active_candidate = nil
-    @candidates_tabs = candidates_tabs
-    @candidate_active_main_tab = candidate_active_main_tab
-    @candidate_active_main_tab_locals = candidate_active_main_tab_locals
+    @active_candidate = @candidates.first
+    active_tab = params[:active_main_tab] || candidate_active_main_tab
+    @candidates_tabs = candidates_tabs(active_tab)
+    @candidate_active_main_tab = "dashboards/mainbar/candidate/#{active_tab}.html.erb"
+    @candidate_active_main_tab_locals = candidate_active_main_tab_locals(@active_candidate&.id)
   end
 
   def by_electoral_position
     @electoral_positions = ElectoralPosition.all
-    @active_electoral_position = nil
-    @electoral_positions_tabs = electoral_positions_tabs
-    @electoral_position_active_main_tab = electoral_position_active_main_tab
-    @electoral_position_active_main_tab_locals = electoral_position_active_main_tab_locals
+    @active_electoral_position = @electoral_positions.first
+    active_tab = params[:active_main_tab] || electoral_position_active_main_tab
+    @electoral_positions_tabs = electoral_positions_tabs(active_tab)
+    @electoral_position_active_main_tab = "dashboards/mainbar/electoral_position/#{active_tab}.html.erb"
+    @electoral_position_active_main_tab_locals = electoral_position_active_main_tab_locals(@active_electoral_position&.id)
   end
 
   def by_election_period
     @election_periods = ElectionPeriod.all
-    @active_election_period = nil
-    @election_periods_tabs = election_periods_tabs
-    @election_period_active_main_tab = election_period_active_main_tab
-    @election_period_active_main_tab_locals = election_period_active_main_tab_locals
+    @active_election_period = @election_periods.first
+    active_tab = params[:active_main_tab] || election_period_active_main_tab
+    @election_periods_tabs = election_periods_tabs(active_tab)
+    @election_period_active_main_tab = "dashboards/mainbar/election_period/#{active_tab}.html.erb"
+    @election_period_active_main_tab_locals = election_period_active_main_tab_locals(@active_election_period&.id)
   end
 
   private
@@ -98,5 +102,177 @@ class DashboardsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def dashboard_params
       params.require(:dashboard).permit(:type, :query)
+    end
+
+    def tab_data
+      Struct.new(:link, :content, :active, keyword_init: true)
+    end
+
+    def tab_type
+      Struct.new(:one, :two, :three, :four, :five, keyword_init: true)
+    end
+
+    def candidates_tabs(active_tab)
+      tab_type.new(
+        one: tab_data.new(
+          link: "#{url_for(:controller => 'dashboards', :action => 'by_candidate', active_main_tab: 'votes_stream')}",
+          content: 'Votes stream',
+          active: active_tab == "votes_stream" ? true : false
+        ),
+        two: tab_data.new(
+          link: "#{url_for(:controller => 'dashboards', :action => 'by_candidate', active_main_tab: 'votes_bar_graph')}",
+          content: 'Votes bar graph',
+          active: active_tab == "votes_bar_graph" ? true : false
+        ),
+        three: tab_data.new(
+          link: "#{url_for(:controller => 'dashboards', :action => 'by_candidate', active_main_tab: 'votes_time_series')}",
+          content: 'Votes time series',
+          active: active_tab == "votes_time_series" ? true : false
+        ),
+        four: tab_data.new(
+          link: "#{url_for(:controller => 'dashboards', :action => 'by_candidate', active_main_tab: 'votes_pie_chart')}",
+          content: 'Votes pie chart',
+          active: active_tab == "votes_pie_chart" ? true : false
+        ),
+        five: tab_data.new(
+          link: "#{url_for(:controller => 'dashboards', :action => 'by_candidate', active_main_tab: 'settings')}",
+          content: 'Settings',
+          active: active_tab == "settings" ? true : false
+        ),
+      )
+    end
+
+    def counting_stations_tabs(active_tab)
+      tab_type.new(
+        one: tab_data.new(
+          link: "#{url_for(:controller => 'dashboards', :action => 'by_counting_station', active_main_tab: 'votes_stream')}",
+          content: 'Votes stream',
+          active: active_tab == "votes_stream" ? true : false
+        ),
+        two: tab_data.new(
+          link: "#{url_for(:controller => 'dashboards', :action => 'by_counting_station', active_main_tab: 'votes_bar_graph')}",
+          content: 'Votes bar graph',
+          active: active_tab == "votes_bar_graph" ? true : false
+        ),
+        three: tab_data.new(
+          link: "#{url_for(:controller => 'dashboards', :action => 'by_counting_station', active_main_tab: 'votes_time_series')}",
+          content: 'Votes time series',
+          active: active_tab == "votes_time_series" ? true : false
+        ),
+        four: tab_data.new(
+          link: "#{url_for(:controller => 'dashboards', :action => 'by_counting_station', active_main_tab: 'votes_pie_chart')}",
+          content: 'Votes pie chart',
+          active: active_tab == "votes_pie_chart" ? true : false
+        ),
+        five: tab_data.new(
+          link: "#{url_for(:controller => 'dashboards', :action => 'by_counting_station', active_main_tab: 'settings')}",
+          content: 'Settings',
+          active: active_tab == "settings" ? true : false
+        ),
+      )
+    end
+
+    def election_periods_tabs(active_tab)
+      tab_type.new(
+        one: tab_data.new(
+          link: "#{url_for(:controller => 'dashboards', :action => 'by_election_period', active_main_tab: 'votes_stream')}",
+          content: 'Votes stream',
+          active: active_tab == "votes_stream" ? true : false
+        ),
+        two: tab_data.new(
+          link: "#{url_for(:controller => 'dashboards', :action => 'by_election_period', active_main_tab: 'votes_bar_graph')}",
+          content: 'Votes bar graph',
+          active: active_tab == "votes_bar_graph" ? true : false
+        ),
+        three: tab_data.new(
+          link: "#{url_for(:controller => 'dashboards', :action => 'by_election_period', active_main_tab: 'votes_time_series')}",
+          content: 'Votes time series',
+          active: active_tab == "votes_time_series" ? true : false
+        ),
+        four: tab_data.new(
+          link: "#{url_for(:controller => 'dashboards', :action => 'by_election_period', active_main_tab: 'votes_pie_chart')}",
+          content: 'Votes pie chart',
+          active: active_tab == "votes_pie_chart" ? true : false
+        ),
+        five: tab_data.new(
+          link: "#{url_for(:controller => 'dashboards', :action => 'by_election_period', active_main_tab: 'settings')}",
+          content: 'Settings',
+          active: active_tab == "settings" ? true : false
+        ),
+      )
+    end
+
+    def electoral_positions_tabs(active_tab)
+      tab_type.new(
+        one: tab_data.new(
+          link: "#{url_for(:controller => 'dashboards', :action => 'by_electoral_position', active_main_tab: 'votes_stream')}",
+          content: 'Votes stream',
+          active: active_tab == "votes_stream" ? true : false
+        ),
+        two: tab_data.new(
+          link: "#{url_for(:controller => 'dashboards', :action => 'by_electoral_position', active_main_tab: 'votes_bar_graph')}",
+          content: 'Votes bar graph',
+          active: active_tab == "votes_bar_graph" ? true : false
+        ),
+        three: tab_data.new(
+          link: "#{url_for(:controller => 'dashboards', :action => 'by_electoral_position', active_main_tab: 'votes_time_series')}",
+          content: 'Votes time series',
+          active: active_tab == "votes_time_series" ? true : false
+        ),
+        four: tab_data.new(
+          link: "#{url_for(:controller => 'dashboards', :action => 'by_electoral_position', active_main_tab: 'votes_pie_chart')}",
+          content: 'Votes pie chart',
+          active: active_tab == "votes_pie_chart" ? true : false
+        ),
+        five: tab_data.new(
+          link: "#{url_for(:controller => 'dashboards', :action => 'by_electoral_position', active_main_tab: 'settings')}",
+          content: 'Settings',
+          active: active_tab == "settings" ? true : false
+        ),
+      )
+    end
+
+    def tab_class(is_active)
+      if is_active
+        "px-3 border-b-2 border-blue-500 text-blue-500 dark:text-white dark:border-white pb-1.5"
+      else
+        "px-3 border-b-2 border-transparent text-gray-600 dark:text-gray-400 pb-1.5"
+      end
+    end
+  
+    def electoral_position_active_main_tab
+      "dashboards/mainbar/electoral_position/votes_stream.html.erb"
+    end
+  
+    def electoral_position_active_main_tab_locals(electoral_position_id)
+      votes = Votes.where(electoral_position_id: electoral_position_id)
+      { votes: votes }
+    end
+  
+    def election_period_active_main_tab
+      "dashboards/mainbar/election_period/votes_stream.html.erb"
+    end
+
+    def election_period_active_main_tab_locals(election_period_id)
+      votes = Votes.where(election_period_id: election_period_id)
+      { votes: votes }
+    end
+  
+    def counting_station_active_main_tab
+      "dashboards/mainbar/counting_station/votes_stream.html.erb"
+    end
+  
+    def counting_station_active_main_tab_locals(counting_station_id)
+      votes = Votes.where(counting_station_id: counting_station_id)
+      { votes: votes }
+    end
+  
+    def candidate_active_main_tab
+      "votes_stream"
+    end
+  
+    def candidate_active_main_tab_locals(candidate_id)
+      votes = Votes.where(candidate_id: candidate_id)
+      { votes: votes }
     end
 end

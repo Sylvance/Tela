@@ -43,7 +43,9 @@
         </tr>
     </thead>
     <tbody class="text-gray-600 dark:text-gray-100">
-        <%= render partial: "dashboards/mainbar/candidates/stream", locals: { vote: vote }%>
+        <% votes.each do |vote| %>
+            <%= render partial: "dashboards/mainbar/candidates/stream", locals: { vote: vote }%>
+        <% end %>
     </tbody>
 </table>
 
