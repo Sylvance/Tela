@@ -1,4 +1,13 @@
 <div class="flex items-center space-x-3 sm:mt-7 mt-4">
+    <%
+        def tab_class(is_active)
+          if is_active
+            "px-3 border-b-2 border-blue-500 text-blue-500 dark:text-white dark:border-white pb-1.5"
+          else
+            "px-3 border-b-2 border-transparent text-gray-600 dark:text-gray-400 pb-1.5"
+          end
+        end
+    %>
     <a href="<%= tabs.one.link %>" class="<%= tab_class(tabs.one.active) %>">
         <%= tabs.one.content %>
     </a>

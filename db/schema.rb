@@ -25,15 +25,23 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_02_193839) do
   create_table "candidates", force: :cascade do |t|
     t.string "name"
     t.string "iebc_id"
+    t.bigint "picture_id", null: false
+    t.bigint "election_period_id", null: false
+    t.bigint "electoral_position_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["election_period_id"], name: "index_candidates_on_election_period_id"
+    t.index ["electoral_position_id"], name: "index_candidates_on_electoral_position_id"
+    t.index ["picture_id"], name: "index_candidates_on_picture_id"
   end
 
   create_table "counting_stations", force: :cascade do |t|
     t.string "name"
     t.string "location"
+    t.bigint "picture_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["picture_id"], name: "index_counting_stations_on_picture_id"
   end
 
   create_table "dashboards", force: :cascade do |t|
@@ -46,15 +54,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_02_193839) do
   create_table "election_periods", force: :cascade do |t|
     t.string "name"
     t.date "date"
+    t.bigint "picture_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["picture_id"], name: "index_election_periods_on_picture_id"
   end
 
   create_table "electoral_positions", force: :cascade do |t|
     t.string "name"
     t.string "jurisdiction"
+    t.bigint "picture_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["picture_id"], name: "index_electoral_positions_on_picture_id"
   end
 
   create_table "observers", force: :cascade do |t|
@@ -98,6 +110,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_02_193839) do
   end
 
   create_table "tallies", force: :cascade do |t|
+    t.bigint "election_period_id", null: false
+    t.bigint "electoral_position_id", null: false
     t.bigint "candidate_id", null: false
     t.string "total_count"
     t.bigint "counting_station_id", null: false
@@ -105,6 +119,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_02_193839) do
     t.datetime "updated_at", null: false
     t.index ["candidate_id"], name: "index_tallies_on_candidate_id"
     t.index ["counting_station_id"], name: "index_tallies_on_counting_station_id"
+    t.index ["election_period_id"], name: "index_tallies_on_election_period_id"
+    t.index ["electoral_position_id"], name: "index_tallies_on_electoral_position_id"
   end
 
   create_table "votes", force: :cascade do |t|
@@ -125,11 +141,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_02_193839) do
     t.index ["picture_id"], name: "index_votes_on_picture_id"
   end
 
+  add_foreign_key "candidates", "election_periods"
+  add_foreign_key "candidates", "electoral_positions"
+  add_foreign_key "candidates", "pictures"
+  add_foreign_key "counting_stations", "pictures"
+  add_foreign_key "election_periods", "pictures"
+  add_foreign_key "electoral_positions", "pictures"
   add_foreign_key "political_parties", "admins"
   add_foreign_key "sessions", "observers"
   add_foreign_key "signins", "observers"
   add_foreign_key "tallies", "candidates"
   add_foreign_key "tallies", "counting_stations"
+  add_foreign_key "tallies", "election_periods"
+  add_foreign_key "tallies", "electoral_positions"
   add_foreign_key "votes", "candidates"
   add_foreign_key "votes", "counting_stations"
   add_foreign_key "votes", "election_periods"

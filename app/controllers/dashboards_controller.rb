@@ -62,7 +62,7 @@ class DashboardsController < ApplicationController
     @active_counting_station =  @counting_stations.find_by(id: params[:counting_station_id]) || @counting_stations.first
     active_tab = params[:active_main_tab] || counting_station_active_main_tab
     @counting_stations_tabs = counting_stations_tabs(active_tab, @active_counting_station&.id)
-    @counting_station_active_main_tab = "dashboards/mainbar/counting_station/#{active_tab}.html.erb"
+    @counting_station_active_main_tab = "dashboards/mainbar/counting_station/#{active_tab}"
     @counting_station_active_main_tab_locals = counting_station_active_main_tab_locals(@active_counting_station&.id)
   end
 
@@ -71,7 +71,7 @@ class DashboardsController < ApplicationController
     @active_candidate = @candidates.find_by(id: params[:candidate_id]) || @candidates.first
     active_tab = params[:active_main_tab] || candidate_active_main_tab
     @candidates_tabs = candidates_tabs(active_tab, @active_candidate&.id)
-    @candidate_active_main_tab = "dashboards/mainbar/candidate/#{active_tab}.html.erb"
+    @candidate_active_main_tab = "dashboards/mainbar/candidate/#{active_tab}"
     @candidate_active_main_tab_locals = candidate_active_main_tab_locals(@active_candidate&.id)
   end
 
@@ -80,7 +80,7 @@ class DashboardsController < ApplicationController
     @active_electoral_position = @electoral_positions.find_by(id: params[:electoral_position_id]) || @electoral_positions.first
     active_tab = params[:active_main_tab] || electoral_position_active_main_tab
     @electoral_positions_tabs = electoral_positions_tabs(active_tab, @active_electoral_position&.id)
-    @electoral_position_active_main_tab = "dashboards/mainbar/electoral_position/#{active_tab}.html.erb"
+    @electoral_position_active_main_tab = "dashboards/mainbar/electoral_position/#{active_tab}"
     @electoral_position_active_main_tab_locals = electoral_position_active_main_tab_locals(@active_electoral_position&.id)
   end
 
@@ -89,7 +89,7 @@ class DashboardsController < ApplicationController
     @active_election_period = @election_periods.find_by(id: params[:election_period_id]) || @election_periods.first
     active_tab = params[:active_main_tab] || election_period_active_main_tab
     @election_periods_tabs = election_periods_tabs(active_tab, @active_election_period&.id)
-    @election_period_active_main_tab = "dashboards/mainbar/election_period/#{active_tab}.html.erb"
+    @election_period_active_main_tab = "dashboards/mainbar/election_period/#{active_tab}"
     @election_period_active_main_tab_locals = election_period_active_main_tab_locals(@active_election_period&.id)
   end
 
@@ -291,39 +291,31 @@ class DashboardsController < ApplicationController
         ),
       )
     end
-
-    def tab_class(is_active)
-      if is_active
-        "px-3 border-b-2 border-blue-500 text-blue-500 dark:text-white dark:border-white pb-1.5"
-      else
-        "px-3 border-b-2 border-transparent text-gray-600 dark:text-gray-400 pb-1.5"
-      end
-    end
   
     def electoral_position_active_main_tab
-      "dashboards/mainbar/electoral_position/votes_stream.html.erb"
+      "dashboards/mainbar/electoral_position/votes_stream"
     end
   
     def electoral_position_active_main_tab_locals(electoral_position_id)
-      votes = Votes.where(electoral_position_id: electoral_position_id)
+      votes = Vote.where(electoral_position_id: electoral_position_id)
       { votes: votes }
     end
   
     def election_period_active_main_tab
-      "dashboards/mainbar/election_period/votes_stream.html.erb"
+      "dashboards/mainbar/election_period/votes_stream"
     end
 
     def election_period_active_main_tab_locals(election_period_id)
-      votes = Votes.where(election_period_id: election_period_id)
+      votes = Vote.where(election_period_id: election_period_id)
       { votes: votes }
     end
   
     def counting_station_active_main_tab
-      "dashboards/mainbar/counting_station/votes_stream.html.erb"
+      "dashboards/mainbar/counting_station/votes_stream"
     end
   
     def counting_station_active_main_tab_locals(counting_station_id)
-      votes = Votes.where(counting_station_id: counting_station_id)
+      votes = Vote.where(counting_station_id: counting_station_id)
       { votes: votes }
     end
   
@@ -332,7 +324,7 @@ class DashboardsController < ApplicationController
     end
   
     def candidate_active_main_tab_locals(candidate_id)
-      votes = Votes.where(candidate_id: candidate_id)
+      votes = Vote.where(candidate_id: candidate_id)
       { votes: votes }
     end
 end
